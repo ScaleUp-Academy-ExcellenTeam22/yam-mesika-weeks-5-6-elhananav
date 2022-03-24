@@ -1,16 +1,16 @@
-def join(*lists, sep='-'):
-    '''
-    get unlimited number of lists and combined them into one list, seperated
-    with the sep sign
+def join(*lists: int, separator='-') -> list:
+    """
+    Get unlimited number of lists and combined them into one list, separated
+    with the sep sign.
     :param lists: lists wanted to be combined
-    :param sep: separator between the lists
+    :param separator: separator between the lists
     :return: the combined list
-    '''
+    """
     if not lists:
-        return None
-    joined_list = []
-    for list1 in lists:
-        joined_list += list1
-        joined_list.append(sep)
-    return joined_list[:-1]  # return without the last separator(not needed)
+        return []
+    joined_list = [str(list1) for list1 in lists]
+    return list(separator.join(joined_list))
 
+
+if __name__ == "__main__":
+    print(join(1, 2, 3))
