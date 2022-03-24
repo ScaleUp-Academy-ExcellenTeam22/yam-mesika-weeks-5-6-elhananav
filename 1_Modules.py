@@ -2,23 +2,31 @@ import datetime
 import random
 
 
-def vinaigrette(start_date_str, end_date_str):
-    '''
-    this function generates a random date between two given dates
-    :param start_date_str: the minimum date ro be selected
-    :param end_date_str: the maximum date ro be selected
-    :return: random date between two given dates
-    '''
-    list_dates = start_date_str.split("-")
-    start_date = datetime.date(int(list_dates[0]), int(list_dates[1]), int(list_dates[2]))
-    list_dates = end_date_str.split("-")
-    end_date = datetime.date(int(list_dates[0]), int(list_dates[1]), int(list_dates[2]))
-    time_between_dates = end_date - start_date
-    days_between_dates = time_between_dates.days
-    random_number_of_days = random.randrange(days_between_dates)
-    random_date = start_date + datetime.timedelta(days=random_number_of_days)
-    if random_date.isoweekday() == 1:  # 1 = monday
+def print_if_day_is_monday(date: datetime.date) -> None:
+    """
+    Print 'אין לי ויניגרט!' if the given date is monday.
+    :param date: The date to be check.
+    :return: None
+    """
+    if date.isoweekday() == 1:  # 1 = monday
         print("אין לי ויניגרט!")
+
+
+def vinaigrette(start_date_str: str, end_date_str: str) -> datetime.date:
+    """
+    This function generates a random date between two given dates.
+    :param start_date_str: The minimum date can be selected.
+    :param end_date_str: The maximum date can be selected.
+    :return: Random date between two given dates.
+    """
+    start_date = datetime.datetime.strptime(start_date_str, "%Y-%m-%d")
+    end_date = datetime.datetime.strptime(end_date_str, "%Y-%m-%d")
+    random_number_of_days = random.randrange((end_date - start_date).days)
+    random_date = start_date + datetime.timedelta(random_number_of_days)
+    print_if_day_is_monday(random_date)
     return random_date
 
-print(vinaigrette("1912-06-23", "1954-06-07"))
+
+if __name__ == "__main__":
+    print(vinaigrette("1912-06-23", "1954-06-07"))
+
